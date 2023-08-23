@@ -97,8 +97,10 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
         {
             transform.position += moveDir * moveDistance;
         }
-        transform.forward = Vector3.Slerp(transform.forward, moveDir, Time.deltaTime * speed);
-        isWalking = moveDir != Vector3.zero;
+        if (isWalking = moveDir != Vector3.zero)
+        {
+            transform.forward = Vector3.Slerp(transform.forward, moveDir, Time.deltaTime * speed);
+        }
     }
 
     private void HandleInteractions()
