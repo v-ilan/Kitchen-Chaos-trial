@@ -18,4 +18,9 @@ public class ContainerCounter : BaseCounter
             OnPlayerGrabObject?.Invoke(this, EventArgs.Empty);
         }
     }
+
+    public override void InteractAlternate(PlayerController playerController)
+    {
+        Interact(playerController);
+    }
 }

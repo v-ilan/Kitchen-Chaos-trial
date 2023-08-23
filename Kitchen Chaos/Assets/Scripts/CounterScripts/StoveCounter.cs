@@ -98,7 +98,20 @@ public class StoveCounter : BaseCounter, IHasProgress
         }
         else
         {   //There is KitchenObject on ClearCounter
-            if (!playerController.HasKitchenObject())
+            if (playerController.HasKitchenObject())
+            {   //player has KitchenObject
+                if (playerController.GetKitchenObject().TryGetPlate(out PlateKitchenObject plateKitchenObject))
+                {   //player is holding a Plate
+                    if (plateKitchenObject.TryAddIngredient(GetKitchenObject().GetKitchenObjectSO()))
+                    {
+                        GetKitchenObject().DestroySelf();
+                        state = State.Idle;
+                        OnStateChange?.Invoke(this, new OnStateChangeEventArgs { state = state });
+                        OnProgressChanged?.Invoke(this, new IHasProgress.OnProgressChangedEventArgs { progressNormalized = 0f });
+                    }
+                }
+            }
+            else
             {   //Player has no KitchenObject
                 GetKitchenObject().SetKitchenObjectParent(playerController);
                 state = State.Idle;
@@ -110,7 +123,7 @@ public class StoveCounter : BaseCounter, IHasProgress
 
     public override void InteractAlternate(PlayerController playerController)
     {
-
+        Interact(playerController);
     }
 
     private bool HasRecipe(KitchenObjectSO inputKitchenObjectSO)

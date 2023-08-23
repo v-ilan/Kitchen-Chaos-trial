@@ -14,9 +14,6 @@ public class TrashCounter : BaseCounter
 
     public override void InteractAlternate(PlayerController playerController)
     {
-        if (playerController.HasKitchenObject())
-        {
-            playerController.GetKitchenObject().DestroySelf();
-        }
+        Interact(playerController);
     }
 }
