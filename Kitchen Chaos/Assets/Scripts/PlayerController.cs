@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
 {
     public static PlayerController Instance { get; private set; }
 
+    public event EventHandler OnPickedSomething;
     public event EventHandler<OnSelectedCounterChangedEventArgs> OnSelectedCounterChanged;
     public class OnSelectedCounterChangedEventArgs : EventArgs
     {
@@ -39,31 +40,12 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
         gameInput.OnIneractAlternateAction += GameInputOnIneractAlternateAction;
     }
 
-    private void GameInputOnInteractAction(object sender, System.EventArgs e)
-    {
-        if(selectedCounter != null)
-        {
-            selectedCounter.Interact(this);
-        }
-    }
-    private void GameInputOnIneractAlternateAction(object sender, EventArgs e)
-    {
-        if (selectedCounter != null)
-        {
-            selectedCounter.InteractAlternate(this);
-        }
-    }
 
     // Update is called once per frame
     private void Update()
     {
         HandleMovement();
         HandleInteractions();
-    }
-
-    public bool IsWalking()
-    {
-        return isWalking;
     }
     private void HandleMovement()
     {
@@ -129,6 +111,25 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
             SetSelectedCounter(null);
         }
     }
+    private void GameInputOnInteractAction(object sender, System.EventArgs e)
+    {
+        if(GameHandler.Instance.IsGamePlaying() && selectedCounter != null)
+        {
+            selectedCounter.Interact(this);
+        }
+    }
+    private void GameInputOnIneractAlternateAction(object sender, EventArgs e)
+    {
+        if (GameHandler.Instance.IsGamePlaying() &&selectedCounter != null)
+        {
+            selectedCounter.InteractAlternate(this);
+        }
+    }
+
+    public bool IsWalking()
+    {
+        return isWalking;
+    }
 
     private void SetSelectedCounter(BaseCounter selectedCounter)
     {
@@ -144,6 +145,11 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
     public void SetKitchenObject(KitchenObject kitchenObject)
     {
         this.kitchenObject = kitchenObject;
+
+        if(kitchenObject != null)
+        {
+            OnPickedSomething.Invoke(this, EventArgs.Empty);
+        }
     }
 
     public KitchenObject GetKitchenObject()

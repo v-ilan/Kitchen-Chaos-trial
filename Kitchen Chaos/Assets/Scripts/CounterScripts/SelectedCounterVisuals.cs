@@ -26,9 +26,12 @@ public class SelectedCounterVisuals : MonoBehaviour
 
     private void Show()
     {
-        foreach (GameObject visualGameObject in visualGameObjectArray)
+        if (GameHandler.Instance.IsGamePlaying())
         {
-            visualGameObject.SetActive(true);
+            foreach (GameObject visualGameObject in visualGameObjectArray)
+            {
+                visualGameObject.SetActive(true);
+            }
         }
     }
 

@@ -7,6 +7,8 @@ public class DeliveryManager : MonoBehaviour
 {
     public event EventHandler OnRecipeOrdered;
     public event EventHandler OnRecipeDelivered;
+    public event EventHandler OnRecipeSuccess;
+    public event EventHandler OnRecipeFailed;
 
     public static DeliveryManager Instance { get; private set; }
     [SerializeField] private RecipeListSO recipeListSO;
@@ -15,6 +17,7 @@ public class DeliveryManager : MonoBehaviour
     private const int WAITING_RECIPE_MAX = 4;
     private const float SPAWN_RECIPE_TIMER_MAX = 4f;
     private float spawnRecipeTimer;
+    private int successfullRecipesAmount = 0;
 
     private void Awake()
     {
@@ -30,7 +33,6 @@ public class DeliveryManager : MonoBehaviour
             if (waitingRecipeSOList.Count < WAITING_RECIPE_MAX)
             {
                 RecipeSO waitingRecipeSO = recipeListSO.recipeSOList[UnityEngine.Random.Range(0, recipeListSO.recipeSOList.Count)];
-                Debug.Log(waitingRecipeSO);
                 waitingRecipeSOList.Add(waitingRecipeSO);
                 OnRecipeOrdered?.Invoke(this, EventArgs.Empty);
             }
@@ -65,14 +67,25 @@ public class DeliveryManager : MonoBehaviour
                 {   //player deliverd the corerct recipe
                     waitingRecipeSOList.RemoveAt(i);
                     hasDeliverd = true;
+                    successfullRecipesAmount++;
                     OnRecipeDelivered?.Invoke(this, EventArgs.Empty);
+                    OnRecipeSuccess?.Invoke(this, EventArgs.Empty);
                 }
             }
+        }
+        if(!hasDeliverd)
+        {
+            OnRecipeFailed?.Invoke(this, EventArgs.Empty);
         }
     }
 
     public List<RecipeSO> GetWaitRecipeSOList()
     {
         return waitingRecipeSOList;    
+    }
+
+    public int GetSuccessfullRecipesAmount()
+    { 
+        return successfullRecipesAmount; 
     }
 }
