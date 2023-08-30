@@ -20,9 +20,10 @@ public class GameHandler : MonoBehaviour
     }
     private State state;
 
-    private const float WAITING_TO_START_TIMER = 1f;
+    //private const float WAITING_TO_START_TIMER = 1f;
+    
     private const float COUNTDOWN_TO_START_TIMER = 3f;
-    private const float GAME_PLAYING_TIMER = 10f;
+    private const float GAME_PLAYING_TIMER = 3.5f * 60f;
 
     private float timer = 0f;
 
@@ -32,12 +33,23 @@ public class GameHandler : MonoBehaviour
     {
         Instance = this;
         state = State.WaitingToStart;
-        timer = WAITING_TO_START_TIMER;
+        //timer = WAITING_TO_START_TIMER;
     }
 
     private void Start()
     {
         GameInput.Instance.OnPauseAction += GameInputOnPauseAction;
+        GameInput.Instance.OnInteractAction += GameInputOnInteractAction;
+    }
+
+    private void GameInputOnInteractAction(object sender, EventArgs e)
+    {
+        if(state == State.WaitingToStart)
+        {
+            state = State.CountdownToStart;
+            timer = COUNTDOWN_TO_START_TIMER;
+            OnStateChange?.Invoke(this, EventArgs.Empty);
+        }
     }
 
     private void Update()
@@ -45,13 +57,6 @@ public class GameHandler : MonoBehaviour
         switch(state)
         {
             case State.WaitingToStart:
-                timer -= Time.deltaTime;
-                if(timer < 0f)
-                {
-                    timer = COUNTDOWN_TO_START_TIMER;
-                    state = State.CountdownToStart;
-                    OnStateChange?.Invoke(this, EventArgs.Empty);
-                }
                 break; 
             case State.CountdownToStart:
                 timer -= Time.deltaTime;
@@ -72,8 +77,10 @@ public class GameHandler : MonoBehaviour
                 break;
             case State.GameOver:
                 break;
+            default:
+                Debug.LogError("No correct State!");
+                break;
         }
-        //Debug.Log(state);
     }
 
     public bool IsGamePlaying()

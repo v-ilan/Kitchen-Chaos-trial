@@ -13,6 +13,16 @@ public class GameHandlerUI : MonoBehaviour
     [SerializeField] private GameObject GamePlayingClock;
     [SerializeField] private Image clockTimerImage;
 
+    private const string NUMBER_POPUP = "NumberPopup";
+
+    private Animator animator;
+    private int previousCoundownNum = 0;
+
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
+
     private void Start()
     {
         GameHandler.Instance.OnStateChange += GameHandlerOnStateChange;
@@ -23,7 +33,14 @@ public class GameHandlerUI : MonoBehaviour
 
     private void Update()
     {
-        countdownText.text = Mathf.Ceil(GameHandler.Instance.getCountdownTimer()).ToString();
+        int countDownNum = Mathf.CeilToInt(GameHandler.Instance.getCountdownTimer());
+        countdownText.text = countDownNum.ToString();
+        if(GameHandler.Instance.IsCountdown() && previousCoundownNum !=  countDownNum)
+        {
+            previousCoundownNum = countDownNum;
+            animator.SetTrigger(NUMBER_POPUP);
+            SoundManager.Instance.PlayCountdownSound();
+        }
         clockTimerImage.fillAmount = GameHandler.Instance.GetGamePlayingTimerNormalized();
         //ClockColor();
     }

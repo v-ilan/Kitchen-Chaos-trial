@@ -60,7 +60,6 @@ public class SoundManager : MonoBehaviour
     private void DeliveryManagerOnRecipeSuccess(object sender, System.EventArgs e)
     {
         PlaySound(audioClipRefsSO.deliverySuccess, DeliveryCounter.Instance.transform.position);
-
     }
 
     private void PlaySound(AudioClip audioClip, Vector3 position, float volumeMultiplier = 1f)
@@ -70,6 +69,16 @@ public class SoundManager : MonoBehaviour
     private void PlaySound(AudioClip[] audioClipArray, Vector3 position, float volume = 1f)
     {
         PlaySound(audioClipArray[Random.Range(0, audioClipArray.Length)], position, volume);
+    }
+
+    public void PlayCountdownSound()
+    {
+        PlaySound(audioClipRefsSO.warning, Vector3.zero);
+    }
+
+    public void PlayWarningSound(Vector3 position)
+    {
+        PlaySound(audioClipRefsSO.warning, position);
     }
 
     public void ChangeVolume()
