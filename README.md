@@ -12,13 +12,13 @@ While the core concept was guided by industry-standard patterns (via Code Monkey
 
 As a researcher, I focused on implementing systems that are robust and easy to extend:
 
- Event-Driven Communication: Leveraged C# Events to ensure the Game Logic and UI are completely decoupled.
- 
- Interface-Based Interaction: Implemented an IInteractable system, allowing the player to interact with any object (Counters, Trash Bins, Stoves) through a single interface.
- 
- ScriptableObject Databases: Data-driven design for recipes and kitchen objects, making it possible to add new content without changing a single line of code.
- 
- State Machine Logic: Managed complex object states (e.g., the Stove’s Idle -> Frying -> Fried -> Burned transition) using clean, maintainable logic.
+The Observer Pattern & Decoupling: Mastering C# Events to ensure the game logic remains entirely independent of UI and Audio systems—essential for building bug-resistant, testable research tools.
+
+Dependency Inversion & Interfaces: Implementing an IInteractable architecture that allows the player to engage with any world object through a single, abstract gateway rather than messy, hard-coded references.
+
+Modular Data Structures: Utilizing ScriptableObjects to create a "data-driven" design, allowing for the easy addition of new content and recipes without modifying the core engine logic.
+
+Complex Finite State Machines: Architecting reliable state transitions for objects (like the multi-stage cooking and burning process) to prevent "logic-leaks" in chaotic environments.
 
 
 
