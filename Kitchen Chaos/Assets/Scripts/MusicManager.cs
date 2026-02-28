@@ -20,6 +20,12 @@ public class MusicManager : MonoBehaviour
         musicSource.volume = volume;
 
     }
+
+    private void Start()
+    {
+        GameHandler.Instance.OnRushHourStarted += GameHandler_OnRushHourStarted;
+    }
+
     public void ChangeVolume()
     {
         volume += 0.1f;
@@ -35,6 +41,12 @@ public class MusicManager : MonoBehaviour
     public float GetVolume()
     {
         return volume;
+    }
+
+    private void GameHandler_OnRushHourStarted(object sender, System.EventArgs e) 
+    {
+        // Speed up music pitch
+        musicSource.pitch = 1.2f;
     }
 
 }

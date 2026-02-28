@@ -10,6 +10,7 @@ public class GameHandler : MonoBehaviour
     public event EventHandler OnStateChange;
     public event EventHandler OnGamePause;
     public event EventHandler OnGameResume;
+    public event EventHandler OnRushHourStarted;
 
     private enum State
     {
@@ -23,11 +24,17 @@ public class GameHandler : MonoBehaviour
     //private const float WAITING_TO_START_TIMER = 1f;
     
     private const float COUNTDOWN_TO_START_TIMER = 3f;
-    private const float GAME_PLAYING_TIMER = 3.5f * 60f;
+    private const float GAME_PLAYING_TIMER = 0.55f * 60f;
+
+    private const float RUSH_HOUR_THRESHOLD = 30f;
 
     private float timer = 0f;
 
     private bool isGamePaused = false;
+
+    private bool isRushHour = false;
+
+
 
     private void Awake()
     {
@@ -65,10 +72,17 @@ public class GameHandler : MonoBehaviour
                     timer = GAME_PLAYING_TIMER;
                     state = State.GamePlaying;
                     OnStateChange?.Invoke(this, EventArgs.Empty);
+                    
                 }
                 break;
             case State.GamePlaying:
                 timer -= Time.deltaTime;
+                if(!isRushHour && timer < RUSH_HOUR_THRESHOLD)
+                {
+                    isRushHour = true;
+                    OnRushHourStarted?.Invoke(this, EventArgs.Empty);
+                    Debug.Log("Rush Hour Event Fired!");
+                }
                 if (timer < 0f)
                 {
                     state = State.GameOver;
