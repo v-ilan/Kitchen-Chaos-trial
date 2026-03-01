@@ -54,4 +54,16 @@ public class TutorialUI : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
+
+    private void OnDestroy() 
+    {
+        if (GameInput.Instance != null) 
+        {
+            GameInput.Instance.OnBindingRebind -= GameInputOnBindingRebind;
+        }
+        if (GameHandler.Instance != null) 
+        {
+            GameHandler.Instance.OnStateChange -= GameHandlerOnStateChange;
+        }
+    }
 }
