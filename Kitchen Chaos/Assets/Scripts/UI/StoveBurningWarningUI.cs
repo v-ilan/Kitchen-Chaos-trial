@@ -35,4 +35,12 @@ public class StoveBurningWarningUI : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
+
+    private void OnDestroy() 
+    {
+        if (stoveCounter != null) 
+        {
+            stoveCounter.OnProgressChanged -= StoveCounterOnProgressChanged;
+        }
+    }
 }
