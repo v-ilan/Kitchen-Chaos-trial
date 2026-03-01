@@ -166,4 +166,13 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
     {
         return (kitchenObject != null);
     }
+
+    private void OnDestroy() 
+    {
+        if (gameInput != null) 
+        {
+            gameInput.OnInteractAction -= GameInputOnInteractAction;
+            gameInput.OnIneractAlternateAction -= GameInputOnIneractAlternateAction;
+        }
+    }
 }
