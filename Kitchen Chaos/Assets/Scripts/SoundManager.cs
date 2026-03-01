@@ -100,4 +100,30 @@ public class SoundManager : MonoBehaviour
         return volume;
     }
 
+    private void OnDestroy() 
+    {
+        if (DeliveryManager.Instance != null) 
+        {
+            DeliveryManager.Instance.OnRecipeSuccess -= DeliveryManagerOnRecipeSuccess;
+            DeliveryManager.Instance.OnRecipeFailed -= DeliveryManagerOnRecipeFailed;
+        }
+
+        if (DeliveryManager.Instance != null) 
+        {
+            DeliveryManager.Instance.OnRecipeSuccess -= DeliveryManagerOnRecipeSuccess;
+            DeliveryManager.Instance.OnRecipeFailed -= DeliveryManagerOnRecipeFailed;
+        }
+
+        CuttingCounter.OnAnyCut -= CuttingCounterOnAnyCut;
+
+        if (PlayerController.Instance != null) 
+        {
+            PlayerController.Instance.OnPickedSomething += PlayerControllerOnPickedSomething;
+        }
+
+        BaseCounter.OnAnyObjectPlacedHere -= BaseCounterOnAnyObjectPlacedHere;
+        TrashCounter.OnAnyObjectTrashed -= TrashCounterOnAnyObjectTrashed;
+        PlayerSounds.OnAnyFootstep -= PlayerSoundsOnAnyFootstep;
+    }
+
 }
