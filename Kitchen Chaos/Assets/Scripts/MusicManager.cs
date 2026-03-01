@@ -49,4 +49,11 @@ public class MusicManager : MonoBehaviour
         musicSource.pitch = 1.2f;
     }
 
+    private void OnDestroy() 
+    {
+        if (GameHandler.Instance != null) 
+        {
+            GameHandler.Instance.OnRushHourStarted -= GameHandler_OnRushHourStarted;
+        }
+    }
 }
