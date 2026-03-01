@@ -48,11 +48,15 @@ public class GameInput : MonoBehaviour
 
     private void OnDestroy()
     {
-        playerInputActions.Player.Interact.performed -= InteractPerformed;
-        playerInputActions.Player.InteractAlternate.performed -= InteractAlternatePerformed;
-        playerInputActions.Player.Pause.performed -= PausePerformed;
+        if(playerInputActions != null)
+        {
+            playerInputActions.Player.Interact.performed -= InteractPerformed;
+            playerInputActions.Player.InteractAlternate.performed -= InteractAlternatePerformed;
+            playerInputActions.Player.Pause.performed -= PausePerformed;
 
-        playerInputActions.Dispose();
+            playerInputActions.Dispose();
+        }
+        
     }
 
     private void InteractPerformed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
@@ -180,6 +184,5 @@ public class GameInput : MonoBehaviour
             PlayerPrefs.Save();
             OnBindingRebind?.Invoke(this, EventArgs.Empty);
         }).Start();
-
     }
 }
