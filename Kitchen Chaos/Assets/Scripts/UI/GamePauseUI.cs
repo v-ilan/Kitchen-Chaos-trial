@@ -43,4 +43,13 @@ public class GamePauseUI : MonoBehaviour
     private void Hide() {
         gameObject.SetActive(false);
     }
+
+    private void OnDestroy() 
+    {
+        if (GameHandler.Instance != null) 
+        {
+            GameHandler.Instance.OnGamePause -= GameHandlerOnGamePause;
+            GameHandler.Instance.OnGameResume -= GameHandlerOnGameResume;
+        }
+    }
 }
