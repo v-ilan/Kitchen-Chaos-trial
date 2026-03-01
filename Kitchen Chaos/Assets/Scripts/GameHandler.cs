@@ -145,4 +145,11 @@ public class GameHandler : MonoBehaviour
             OnGameResume?.Invoke(this, EventArgs.Empty);
         }
     }
+
+    private void OnDestroy() {
+    if (GameInput.Instance != null) { // Essential!
+        GameInput.Instance.OnPauseAction -= GameInputOnPauseAction;
+        GameInput.Instance.OnInteractAction -= GameInputOnInteractAction;
+    }
+}
 }
