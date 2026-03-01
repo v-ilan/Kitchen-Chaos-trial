@@ -49,4 +49,12 @@ public class ProgerssBarUI : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
+
+    private void OnDestroy() 
+    {
+        if (hasProgress != null) 
+        {
+            hasProgress.OnProgressChanged -= HasProgressOnProgressChanged;
+        }
+    }
 }
