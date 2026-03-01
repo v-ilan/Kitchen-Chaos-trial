@@ -51,5 +51,9 @@ public class GamePauseUI : MonoBehaviour
             GameHandler.Instance.OnGamePause -= GameHandlerOnGamePause;
             GameHandler.Instance.OnGameResume -= GameHandlerOnGameResume;
         }
+
+        resumeButton.onClick.RemoveAllListeners();
+        mainMenuButton.onClick.RemoveAllListeners();
+        optionsButton.onClick.RemoveAllListeners();
     }
 }
