@@ -28,7 +28,7 @@ I am currently iterating on this codebase to include:
 
  ✅ An update version to Unity 6.3
 
- The Rush Hour Event: An observer-pattern implementation that shifts game state and "vibe" as the timer runs low.
+ ✅ The Rush Hour Event: An observer-pattern implementation that shifts game state and "vibe" as the timer runs low.
 
  Dynamic Power-Up System: A random spawner system utilizing custom Blender assets.
 
