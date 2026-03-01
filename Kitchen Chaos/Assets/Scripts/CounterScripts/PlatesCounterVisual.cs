@@ -38,9 +38,12 @@ public class PlatesCounterVisual : MonoBehaviour
         plateVisualGameObjectList.Add(plateVisualTransform.gameObject);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnDestroy() 
     {
-        
+        if (platesCounter != null) 
+        {
+            platesCounter.OnPlateSpawned -= PlatesCounterOnPlateSpawned;
+            platesCounter.OnPlateRemoved -= PlatesCounterOnPlateRemoved;
+        }
     }
 }
