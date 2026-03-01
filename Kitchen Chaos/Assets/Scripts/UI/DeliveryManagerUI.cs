@@ -46,4 +46,13 @@ public class DeliveryManagerUI : MonoBehaviour
             recipeTransform.GetComponent<DeliveryManagerSingleUI>().SetRecipeSO(recipeSO);
         }
     }
+
+    private void OnDestroy() 
+    {
+        if (DeliveryManager.Instance != null) 
+        {
+            DeliveryManager.Instance.OnRecipeOrdered -= DeliveryManagerOnRecipeOrdered;
+            DeliveryManager.Instance.OnRecipeDelivered -= DeliveryManagerOnRecipeDelivered;
+        }
+    }
 }
