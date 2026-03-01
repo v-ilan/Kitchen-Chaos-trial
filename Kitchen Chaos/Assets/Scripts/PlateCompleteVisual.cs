@@ -36,4 +36,12 @@ public class PlateCompleteVisual : MonoBehaviour
             }
         }
     }
+
+    private void OnDestroy() 
+    {
+        if (plateKitchenObject != null) 
+        {
+            plateKitchenObject.OnAddIngredient -= PlateKitchenObjectOnAddIngredient;
+        }
+    }
 }
