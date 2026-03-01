@@ -24,4 +24,12 @@ public class ContainerCounterVisual : MonoBehaviour
     {
         animator.SetTrigger(OPEN_CLOSE);
     }
+
+    private void OnDestroy() 
+    {
+        if (containerCounter != null) 
+        {
+            containerCounter.OnPlayerGrabObject -= ContainerCounterOnPlayerGrabObject;
+        }
+    }
 }
