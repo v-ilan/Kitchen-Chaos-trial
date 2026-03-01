@@ -51,4 +51,13 @@ public class StoveCounterSound : MonoBehaviour
             audioSource.Pause();
         }
     }
+
+    private void OnDestroy() 
+    {
+        if (stoveCounter != null) 
+        {
+            stoveCounter.OnStateChange -= StoveCounterOnStateChange;
+            stoveCounter.OnProgressChanged -= StoveCounterOnProgressChanged;
+        }
+    }
 }
