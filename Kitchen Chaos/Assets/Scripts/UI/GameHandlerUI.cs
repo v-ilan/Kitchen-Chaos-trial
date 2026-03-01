@@ -103,9 +103,9 @@ public class GameHandlerUI : MonoBehaviour
 
     private void PulseClock()
     {
-        float scale = 1f + Mathf.Sin(Time.time * 10f) * 0.1f;
-        clockTimerImage.transform.localScale = Vector3.one * scale;
+        float scale = 1f + Mathf.Sin(Time.time * 3f * Mathf.PI) * 0.1f;
         GamePlayingClock.transform.localScale = Vector3.one * scale;
+        
     }
 
 }
