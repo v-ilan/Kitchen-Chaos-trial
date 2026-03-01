@@ -53,4 +53,13 @@ public class DeliveryResultUI : MonoBehaviour
         messegeText.text = SUCCESS_MSG;
         animator.SetTrigger(POPUP);
     }
+
+    private void OnDestroy() 
+    {
+        if (DeliveryManager.Instance != null) 
+        {
+            DeliveryManager.Instance.OnRecipeSuccess -= DelivryManagerOnRecipeSuccess;
+            DeliveryManager.Instance.OnRecipeFailed -= DelivryManagerOnRecipeFailed;
+        }
+    }
 }
