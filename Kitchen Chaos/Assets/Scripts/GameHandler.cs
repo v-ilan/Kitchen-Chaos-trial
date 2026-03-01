@@ -146,10 +146,12 @@ public class GameHandler : MonoBehaviour
         }
     }
 
-    private void OnDestroy() {
-    if (GameInput.Instance != null) { // Essential!
-        GameInput.Instance.OnPauseAction -= GameInputOnPauseAction;
-        GameInput.Instance.OnInteractAction -= GameInputOnInteractAction;
+    private void OnDestroy() 
+    {
+        if (GameInput.Instance != null) 
+        {
+            GameInput.Instance.OnPauseAction -= GameInputOnPauseAction;
+            GameInput.Instance.OnInteractAction -= GameInputOnInteractAction;
+        }
     }
-}
 }
