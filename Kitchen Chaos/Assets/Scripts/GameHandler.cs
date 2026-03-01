@@ -24,7 +24,7 @@ public class GameHandler : MonoBehaviour
     //private const float WAITING_TO_START_TIMER = 1f;
     
     private const float COUNTDOWN_TO_START_TIMER = 3f;
-    private const float GAME_PLAYING_TIMER = 0.55f * 60f;
+    private const float GAME_PLAYING_TIMER = 3.5f * 60f;
 
     private const float RUSH_HOUR_THRESHOLD = 30f;
 
