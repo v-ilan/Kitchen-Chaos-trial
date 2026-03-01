@@ -27,4 +27,12 @@ public class StoveBurnFlashingBarUI : MonoBehaviour
         bool show = stoveCounter.IsFried() && BURN_SHOW_PROGRESS_AMOUNT < e.progressNormalized;
         animator.SetBool(IS_FLASHING, show);
     }
+
+    private void OnDestroy() 
+    {
+        if (stoveCounter != null) 
+        {
+            stoveCounter.OnProgressChanged -= StoveCounterOnProgressChanged;
+        }
+    }
 }
