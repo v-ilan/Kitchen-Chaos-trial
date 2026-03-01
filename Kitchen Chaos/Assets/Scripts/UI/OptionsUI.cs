@@ -104,5 +104,16 @@ public class OptionsUI : MonoBehaviour
         {
             GameHandler.Instance.OnGameResume -= GameHandlerOnGameResume;
         }
+
+        SFXButton.onClick.RemoveAllListeners();
+        musicButton.onClick.RemoveAllListeners();
+        closeButton.onClick.RemoveAllListeners();
+        moveUpButton.onClick.RemoveAllListeners();
+        moveDownButton.onClick.RemoveAllListeners();
+        moveLeftButton.onClick.RemoveAllListeners();
+        moveRightButton.onClick.RemoveAllListeners();
+        interactButton.onClick.RemoveAllListeners();
+        altInteractButton.onClick.RemoveAllListeners();
+        togglePauseButton.onClick.RemoveAllListeners();
     }   
 }
