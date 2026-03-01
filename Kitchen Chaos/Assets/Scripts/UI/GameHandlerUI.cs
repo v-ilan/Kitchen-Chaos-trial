@@ -12,6 +12,8 @@ public class GameHandlerUI : MonoBehaviour
     [SerializeField] private GameObject GamePlayingClock;
     [SerializeField] private Image clockTimerImage;
 
+    private bool startPulsing = false;
+
     private const string NUMBER_POPUP = "NumberPopup";
 
     private Animator animator;
@@ -25,6 +27,7 @@ public class GameHandlerUI : MonoBehaviour
     private void Start()
     {
         GameHandler.Instance.OnStateChange += GameHandlerOnStateChange;
+        GameHandler.Instance.OnRushHourStarted += GameHandler_OnRushHourStarted;
         countdownText.gameObject.SetActive(false);
         gameOverUI.SetActive(false);
         GamePlayingClock.SetActive(false);
@@ -41,7 +44,8 @@ public class GameHandlerUI : MonoBehaviour
             SoundManager.Instance.PlayCountdownSound();
         }
         clockTimerImage.fillAmount = GameHandler.Instance.GetGamePlayingTimerNormalized();
-        //ClockColor();
+        ClockColor();
+        if (startPulsing) PulseClock();
     }
 
     private void GameHandlerOnStateChange(object sender, System.EventArgs e)
@@ -90,6 +94,18 @@ public class GameHandlerUI : MonoBehaviour
         {
             clockTimerImage.color = Color.red;
         }
+    }
+
+    private void GameHandler_OnRushHourStarted(object sender, System.EventArgs e) 
+    {
+        startPulsing = true;
+    }
+
+    private void PulseClock()
+    {
+        float scale = 1f + Mathf.Sin(Time.time * 10f) * 0.1f;
+        clockTimerImage.transform.localScale = Vector3.one * scale;
+        GamePlayingClock.transform.localScale = Vector3.one * scale;
     }
 
 }
