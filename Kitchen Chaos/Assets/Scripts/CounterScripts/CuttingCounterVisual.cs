@@ -29,7 +29,7 @@ public class CuttingCounterVisual : MonoBehaviour
     {
         if (cuttingCounter != null) 
         {
-            cuttingCounter.OnCut += CuttingCounterOnCut;
+            cuttingCounter.OnCut -= CuttingCounterOnCut;
         }
     }
 }
