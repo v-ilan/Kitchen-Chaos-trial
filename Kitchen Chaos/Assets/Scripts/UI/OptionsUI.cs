@@ -104,5 +104,5 @@ public class OptionsUI : MonoBehaviour
         {
             GameHandler.Instance.OnGameResume -= GameHandlerOnGameResume;
         }
-    }
+    }   
 }
