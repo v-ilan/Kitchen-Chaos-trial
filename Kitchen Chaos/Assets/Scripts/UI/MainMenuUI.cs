@@ -19,4 +19,10 @@ public class MainMenuUI : MonoBehaviour
     {
         playButton.Select();
     }
+
+    private void OnDestroy()
+    {
+        playButton.onClick.RemoveAllListeners();
+        quitButton.onClick.RemoveAllListeners();
+    }
 }
