@@ -108,4 +108,12 @@ public class GameHandlerUI : MonoBehaviour
         
     }
 
+    private void OnDestroy() 
+    {
+        if (GameHandler.Instance != null) 
+        {
+            GameHandler.Instance.OnStateChange -= GameHandlerOnStateChange;
+            GameHandler.Instance.OnRushHourStarted -= GameHandler_OnRushHourStarted;
+        }
+    }
 }
