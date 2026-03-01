@@ -42,4 +42,12 @@ public class SelectedCounterVisuals : MonoBehaviour
             visualGameObject.SetActive(false);
         }
     }
+
+    private void OnDestroy() 
+    {
+        if (PlayerController.Instance != null) 
+        {
+            PlayerController.Instance.OnSelectedCounterChanged -= PlayerControlelrOnSelectedCounterChanged; ;
+        }
+    }
 }
