@@ -47,7 +47,7 @@ public class SelectedCounterVisuals : MonoBehaviour
     {
         if (PlayerController.Instance != null) 
         {
-            PlayerController.Instance.OnSelectedCounterChanged -= PlayerControlelrOnSelectedCounterChanged; ;
+            PlayerController.Instance.OnSelectedCounterChanged -= PlayerControlelrOnSelectedCounterChanged;
         }
     }
 }

@@ -20,4 +20,12 @@ public class StoveCounterVisual : MonoBehaviour
         stoveOnGameObject.SetActive(showVisual);
         particlesGameObject.SetActive(showVisual);
     }
+
+    private void OnDestroy() 
+    {
+        if (stoveCounter != null) 
+        {
+            stoveCounter.OnStateChange -= StoveCounterOnStateChange;
+        }
+    }
 }
