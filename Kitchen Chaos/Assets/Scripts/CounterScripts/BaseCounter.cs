@@ -11,6 +11,7 @@ public class BaseCounter : MonoBehaviour, IKitchenObjectParent
 
     private KitchenObject kitchenObject;
 
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     public static void ResetStaticData()
     {
         OnAnyObjectPlacedHere = null;

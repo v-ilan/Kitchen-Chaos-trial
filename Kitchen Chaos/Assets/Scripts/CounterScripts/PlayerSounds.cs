@@ -11,6 +11,12 @@ public class PlayerSounds : MonoBehaviour
 
     private const float FOOTSTEPS_TIMER_MAX = 0.1f;
 
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    public static void ResetStaticData()
+    {
+        OnAnyFootstep = null;
+    }
+
     private void Awake()
     {
         playerController = GetComponent<PlayerController>();

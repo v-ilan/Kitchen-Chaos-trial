@@ -7,6 +7,7 @@ public class TrashCounter : BaseCounter
 {
     public static event EventHandler OnAnyObjectTrashed;
 
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     new public static void ResetStaticData()
     {
         OnAnyObjectTrashed = null;
