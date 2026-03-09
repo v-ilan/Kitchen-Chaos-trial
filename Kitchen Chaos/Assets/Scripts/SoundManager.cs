@@ -28,7 +28,7 @@ public class SoundManager : MonoBehaviour
         TrashCounter.OnAnyObjectTrashed += TrashCounterOnAnyObjectTrashed;
         PlayerSounds.OnAnyFootstep += PlayerSoundsOnAnyFootstep;
 
-        PowerUpManager.OnAnyPowerUpPickedUp += PowerUpManager_OnAnyPowerUpPickedUp;
+        PowerUpManager.Instance.OnAnyPowerUpPickedUp += PowerUpManager_OnAnyPowerUpPickedUp;
     }
 
     private void PlayerSoundsOnAnyFootstep(object sender, System.EventArgs e)
@@ -128,6 +128,10 @@ public class SoundManager : MonoBehaviour
         if (PlayerController.Instance != null) 
         {
             PlayerController.Instance.OnPickedSomething += PlayerControllerOnPickedSomething;
+        }
+        if (PowerUpManager.Instance != null) 
+        {
+            PowerUpManager.Instance.OnAnyPowerUpPickedUp -= PowerUpManager_OnAnyPowerUpPickedUp;
         }
 
         BaseCounter.OnAnyObjectPlacedHere -= BaseCounterOnAnyObjectPlacedHere;

@@ -8,7 +8,7 @@ public class PowerUpManager : MonoBehaviour
 {
     public static PowerUpManager Instance { get; private set; }
 
-    public static event EventHandler OnAnyPowerUpPickedUp; 
+    public event EventHandler OnAnyPowerUpPickedUp; 
 
     public static event EventHandler<OnTimeBonusEventArgs> OnTimeBonusReceived;
     public class OnTimeBonusEventArgs : EventArgs { public float amount; }
