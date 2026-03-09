@@ -9,7 +9,8 @@ public class PowerUpSO : ScriptableObject
     public float multiplier = 1.5f;
     public PowerUpType type;
 
-    public enum PowerUpType {
+    public enum PowerUpType 
+    {
         AdrenalineShot, // Increases Player Movement Speed
         MagneticHands,  // Increases the interaction distance
         PocketDimension,// Allows the player to hold two items at once

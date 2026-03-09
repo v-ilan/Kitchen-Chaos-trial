@@ -127,8 +127,9 @@ public class SoundManager : MonoBehaviour
 
         if (PlayerController.Instance != null) 
         {
-            PlayerController.Instance.OnPickedSomething += PlayerControllerOnPickedSomething;
+            PlayerController.Instance.OnPickedSomething -= PlayerControllerOnPickedSomething;
         }
+
         if (PowerUpManager.Instance != null) 
         {
             PowerUpManager.Instance.OnAnyPowerUpPickedUp -= PowerUpManager_OnAnyPowerUpPickedUp;

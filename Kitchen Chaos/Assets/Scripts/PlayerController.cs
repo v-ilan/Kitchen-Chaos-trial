@@ -14,6 +14,16 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
         public BaseCounter selectedCounter;
     }
 
+    public event EventHandler OnPowerUpStateChanged;
+
+    public enum PowerUpState
+    {
+        None,    // no power ups
+        Start,  // Powered up
+        Fade    // timeing out
+    }
+    private PowerUpState powerUpState = PowerUpState.None;
+
     [SerializeField] private GameInput gameInput;
     [SerializeField] private float baseMoveSpeed = 10f;
     [SerializeField] private LayerMask moveLayerMask;
@@ -186,8 +196,21 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
 
     private IEnumerator SpeedBoostRoutine(float multiplier, float duration) 
     {
+        OnPowerUpStateChanged?.Invoke(this, EventArgs.Empty);
+        powerUpState = PowerUpState.Start;
+        
         currentMoveSpeed = baseMoveSpeed * multiplier;
-        yield return new WaitForSeconds(duration);
+        
+        yield return new WaitForSeconds(duration * 0.8f);
+        
+        powerUpState = PowerUpState.Fade;
+        OnPowerUpStateChanged?.Invoke(this, EventArgs.Empty);
+
+        yield return new WaitForSeconds(duration * 0.2f);
+
+        powerUpState = PowerUpState.None;
         currentMoveSpeed = baseMoveSpeed * 1f;;
     }
+
+    public PowerUpState GetPowerUpState() => powerUpState;
 }
