@@ -16,6 +16,11 @@ public class PowerUpPickupVisual : MonoBehaviour
     {
         // Rotation is a visual concern, so it stays here
         visualModel.transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime);
+
+        // Sine Wave Hover - Moves the cube up and down by 0.1 units over time
+        float hoverAmount = 0.1f;
+        float hoverSpeed = 2f;
+        visualModel.transform.localPosition = new Vector3(0, Mathf.Sin(Time.time * hoverSpeed) * hoverAmount, 0);
     }
 
     private void PowerUpPickup_OnPickedUp(object sender, System.EventArgs e) 

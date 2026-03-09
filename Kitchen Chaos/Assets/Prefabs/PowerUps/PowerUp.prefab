@@ -116,7 +116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a31b04a9b118c1f4d81ec94bb371b012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PowerUpPickup
-  powerUpSO: {fileID: 0}
+  powerUpSO: {fileID: 11400000, guid: 461eb18fb75f1794fb27f0f836825579, type: 2}
 --- !u!1 &7393629894698113144
 GameObject:
   m_ObjectHideFlags: 0
