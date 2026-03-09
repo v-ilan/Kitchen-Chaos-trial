@@ -15,8 +15,10 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
     }
 
     [SerializeField] private GameInput gameInput;
-    [SerializeField] private float speed = 0f;
+    [SerializeField] private float baseMoveSpeed = 0f;
     [SerializeField] private LayerMask countersLayerMask;
+
+    public float CurrentMoveSpeed { get; private set; }
 
     private bool isWalking;
     private Vector3 moveDir;
@@ -51,7 +53,7 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
     {
         Vector2 inputVector = gameInput.GetMovementVectorNormalized();
         moveDir = new Vector3(inputVector.x, 0f, inputVector.y);
-        float moveDistance = Time.deltaTime * speed;
+        float moveDistance = Time.deltaTime * CurrentMoveSpeed;
         float playerRadius = 0.7f;
         float playerHeight = 2f;
 
@@ -81,7 +83,7 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
         }
         if (isWalking = moveDir != Vector3.zero)
         {
-            transform.forward = Vector3.Slerp(transform.forward, moveDir, Time.deltaTime * speed);
+            transform.forward = Vector3.Slerp(transform.forward, moveDir, Time.deltaTime * CurrentMoveSpeed);
         }
     }
 
@@ -173,6 +175,14 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
         {
             gameInput.OnInteractAction -= GameInputOnInteractAction;
             gameInput.OnIneractAlternateAction -= GameInputOnIneractAlternateAction;
+        }
+    }
+
+    public void UpdateStats(PowerUpSO data, bool isAdding) 
+    {
+        if (data.type == PowerUpSO.PowerUpType.AdrenalineShot) 
+        {
+            CurrentMoveSpeed = isAdding ? baseMoveSpeed * data.multiplier : baseMoveSpeed;
         }
     }
 }
