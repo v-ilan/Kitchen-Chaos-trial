@@ -15,7 +15,8 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
     }
 
     [SerializeField] private GameInput gameInput;
-    [SerializeField] private float baseMoveSpeed = 0f;
+    [SerializeField] private float baseMoveSpeed = 10f;
+    [SerializeField] private LayerMask moveLayerMask;
     [SerializeField] private LayerMask countersLayerMask;
 
     public float CurrentMoveSpeed { get; private set; }
@@ -38,6 +39,7 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
     }
     private void Start()
     {
+        CurrentMoveSpeed = baseMoveSpeed;
         gameInput.OnInteractAction += GameInputOnInteractAction;
         gameInput.OnIneractAlternateAction += GameInputOnIneractAlternateAction;
     }
@@ -57,11 +59,11 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
         float playerRadius = 0.7f;
         float playerHeight = 2f;
 
-        bool canMove = !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDir, moveDistance);
+        bool canMove = !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDir, moveDistance, moveLayerMask);
         if (!canMove) //cannot move in moveDir direction
         {   //attemp movement in X axis
             Vector3 moveDirX = new Vector3(moveDir.x, 0, 0);
-            canMove = Mathf.Abs(moveDir.x) > 0.5f && !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDirX, moveDistance);
+            canMove = Mathf.Abs(moveDir.x) > 0.5f && !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDirX, moveDistance, moveLayerMask);
             if (canMove)
             {
                 moveDir = moveDirX.normalized;
@@ -69,7 +71,7 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
             else
             {   // attempt move in Z axis
                 Vector3 moveDirZ = new Vector3(0, 0, moveDir.z);
-                canMove = Mathf.Abs(moveDir.z) > 0.5f && !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDirZ, moveDistance);
+                canMove = Mathf.Abs(moveDir.z) > 0.5f && !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDirZ, moveDistance, moveLayerMask);
                 if (canMove)
                 {
                     moveDir = moveDirZ.normalized;
@@ -175,6 +177,14 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
         {
             gameInput.OnInteractAction -= GameInputOnInteractAction;
             gameInput.OnIneractAlternateAction -= GameInputOnIneractAlternateAction;
+        }
+    }
+
+    public void UpdateStats(PowerUpSO data, bool isAdding) 
+    {
+        if (data.type == PowerUpSO.PowerUpType.AdrenalineShot) 
+        {
+            CurrentMoveSpeed = isAdding ? baseMoveSpeed * data.multiplier : baseMoveSpeed;
         }
     }
 }

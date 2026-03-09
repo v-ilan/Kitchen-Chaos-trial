@@ -10,10 +10,10 @@ public class PowerUpManager : MonoBehaviour
 
     public event EventHandler OnAnyPowerUpPickedUp; 
 
-    public static event EventHandler<OnTimeBonusEventArgs> OnTimeBonusReceived;
-    public class OnTimeBonusEventArgs : EventArgs { public float amount; }
+    //public static event EventHandler<OnTimeBonusEventArgs> OnTimeBonusReceived;
+    //public class OnTimeBonusEventArgs : EventArgs { public float amount; }
 
-    private List<PowerUpSO> activePowerUps = new List<PowerUpSO>();
+    //private List<PowerUpSO> activePowerUps = new List<PowerUpSO>();
 
     private void Awake()
     {
