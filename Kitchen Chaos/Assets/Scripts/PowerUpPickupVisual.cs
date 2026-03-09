@@ -7,9 +7,14 @@ public class PowerUpPickupVisual : MonoBehaviour
     [SerializeField] private float rotationSpeed = 100f;
     [SerializeField] private GameObject visualModel;
 
+    float hoverAmount = 0.1f;
+    float hoverSpeed = 2f;
+    float baseHeight=  0.5f;
+
     private void Start()
     {
         powerUpPickup.OnPickedUp += PowerUpPickup_OnPickedUp;
+        baseHeight = powerUpPickup.GetComponent<SphereCollider>().center.y;
     }
 
     private void Update()
@@ -18,9 +23,8 @@ public class PowerUpPickupVisual : MonoBehaviour
         visualModel.transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime);
 
         // Sine Wave Hover - Moves the cube up and down by 0.1 units over time
-        float hoverAmount = 0.1f;
-        float hoverSpeed = 2f;
-        visualModel.transform.localPosition = new Vector3(0, Mathf.Sin(Time.time * hoverSpeed) * hoverAmount, 0);
+        
+        visualModel.transform.localPosition = new Vector3(0, Mathf.Sin(Time.time * hoverSpeed) * hoverAmount + baseHeight, 0);
     }
 
     private void PowerUpPickup_OnPickedUp(object sender, System.EventArgs e) 

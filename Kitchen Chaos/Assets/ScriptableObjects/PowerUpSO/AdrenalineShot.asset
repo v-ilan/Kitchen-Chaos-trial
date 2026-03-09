@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94db99c8ac80382489690e2b55757e41, type: 3}
   m_Name: AdrenalineShot
   m_EditorClassIdentifier: Assembly-CSharp::PowerUpSO
-  powerUpName: 
+  powerUpName: AdrenalineShot
   icon: {fileID: 0}
   duration: 0
   multiplier: 1.5
