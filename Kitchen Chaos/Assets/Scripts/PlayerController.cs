@@ -18,8 +18,7 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
     [SerializeField] private float baseMoveSpeed = 10f;
     [SerializeField] private LayerMask moveLayerMask;
     [SerializeField] private LayerMask countersLayerMask;
-
-    public float CurrentMoveSpeed { get; private set; }
+    private float currentMoveSpeed = 10f;
 
     private bool isWalking;
     private Vector3 moveDir;
@@ -39,7 +38,6 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
     }
     private void Start()
     {
-        CurrentMoveSpeed = baseMoveSpeed;
         gameInput.OnInteractAction += GameInputOnInteractAction;
         gameInput.OnIneractAlternateAction += GameInputOnIneractAlternateAction;
     }
@@ -55,7 +53,7 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
     {
         Vector2 inputVector = gameInput.GetMovementVectorNormalized();
         moveDir = new Vector3(inputVector.x, 0f, inputVector.y);
-        float moveDistance = Time.deltaTime * CurrentMoveSpeed;
+        float moveDistance = Time.deltaTime * currentMoveSpeed;
         float playerRadius = 0.7f;
         float playerHeight = 2f;
 
@@ -85,7 +83,7 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
         }
         if (isWalking = moveDir != Vector3.zero)
         {
-            transform.forward = Vector3.Slerp(transform.forward, moveDir, Time.deltaTime * CurrentMoveSpeed);
+            transform.forward = Vector3.Slerp(transform.forward, moveDir, Time.deltaTime * currentMoveSpeed);
         }
     }
 
@@ -180,11 +178,16 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
         }
     }
 
-    public void UpdateStats(PowerUpSO data, bool isAdding) 
+    public void ApplySpeedBoost(float multiplier, float duration) 
     {
-        if (data.type == PowerUpSO.PowerUpType.AdrenalineShot) 
-        {
-            CurrentMoveSpeed = isAdding ? baseMoveSpeed * data.multiplier : baseMoveSpeed;
-        }
+        StopAllCoroutines(); // Reset if we pick up another one mid-boost
+        StartCoroutine(SpeedBoostRoutine(multiplier, duration));
+    }
+
+    private IEnumerator SpeedBoostRoutine(float multiplier, float duration) 
+    {
+        currentMoveSpeed = baseMoveSpeed * multiplier;
+        yield return new WaitForSeconds(duration);
+        currentMoveSpeed = baseMoveSpeed * 1f;;
     }
 }

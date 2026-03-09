@@ -20,13 +20,14 @@ public class PowerUpManager : MonoBehaviour
         Instance = this;
     }
 
-    public void AddPowerUp(PowerUpSO powerUp) {
-        Debug.Log("PowerUp!");
+    public void AddPowerUp(PowerUpSO powerUp) 
+    {
         // Identify what kind of power-up we just got
-        switch (powerUp.type) {
+        switch (powerUp.type) 
+        {
             case PowerUpSO.PowerUpType.AdrenalineShot:
                 // We tell the PlayerController to move faster
-                //PlayerController.Instance.ApplySpeedBoost(powerUp.multiplier, powerUp.duration);
+                PlayerController.Instance.ApplySpeedBoost(powerUp.multiplier, powerUp.duration);
                 break;
             
             case PowerUpSO.PowerUpType.TimeWarp:
