@@ -4,17 +4,27 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class PlayerPowerUpManager : MonoBehaviour
+public class PowerUpManager : MonoBehaviour
 {
+    public static PowerUpManager Instance { get; private set; }
+
+    public static event EventHandler OnAnyPowerUpPickedUp; 
+
     public static event EventHandler<OnTimeBonusEventArgs> OnTimeBonusReceived;
     public class OnTimeBonusEventArgs : EventArgs { public float amount; }
 
     private PlayerController player;
     private List<PowerUpSO> activePowerUps = new List<PowerUpSO>();
 
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     public void AddPowerUp(PowerUpSO powerUp)
     {
         StartCoroutine(PowerUpRoutine(powerUp));
+        OnAnyPowerUpPickedUp?.Invoke(this, EventArgs.Empty);
     }
 
     private IEnumerator PowerUpRoutine(PowerUpSO powerUp)
