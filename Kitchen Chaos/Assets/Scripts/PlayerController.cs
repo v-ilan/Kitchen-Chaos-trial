@@ -177,12 +177,4 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
             gameInput.OnIneractAlternateAction -= GameInputOnIneractAlternateAction;
         }
     }
-
-    public void UpdateStats(PowerUpSO data, bool isAdding) 
-    {
-        if (data.type == PowerUpSO.PowerUpType.AdrenalineShot) 
-        {
-            CurrentMoveSpeed = isAdding ? baseMoveSpeed * data.multiplier : baseMoveSpeed;
-        }
-    }
 }
