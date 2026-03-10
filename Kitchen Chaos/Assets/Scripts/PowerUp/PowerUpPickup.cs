@@ -17,11 +17,9 @@ public class PowerUpPickup : MonoBehaviour
             // Notify the Visuals and Sounds
             OnPickedUp?.Invoke(this, EventArgs.Empty);
 
-            // We don't Destroy(gameObject) immediately anymore! 
-            // We need to give the Visuals/Sounds a frame to react.
-            // We'll handle cleanup differently or disable the Collider/Mesh.
+            // We don't Destroy(gameObject)
+            // Return to pool instead of destroying
             gameObject.SetActive(false); 
-            Destroy(gameObject, 1f); // Destroy after a delay for any lingering effects
         }
     }
 
