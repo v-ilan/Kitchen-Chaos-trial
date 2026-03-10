@@ -4,6 +4,7 @@ using UnityEngine;
 public class PowerUpSO : ScriptableObject
 {
     public string powerUpName;
+    public Transform Prefab;
     public Sprite icon;
     public float duration;
     public float multiplier = 1.5f;

@@ -10,11 +10,7 @@ public class PowerUpPickup : MonoBehaviour
     {
         // We look for the Player component
         if (other.TryGetComponent(out PlayerController playerController)) 
-        {
-            // Give the data to the Player's Power-Up Manager
-            
-            PowerUpManager.Instance.AddPowerUp(powerUpSO);
-            
+        {          
             // Logic First
             PowerUpManager.Instance.AddPowerUp(powerUpSO);
             

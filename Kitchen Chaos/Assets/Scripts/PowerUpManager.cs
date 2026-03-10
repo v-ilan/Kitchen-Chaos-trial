@@ -8,7 +8,12 @@ public class PowerUpManager : MonoBehaviour
 {
     public static PowerUpManager Instance { get; private set; }
 
-    public event EventHandler OnAnyPowerUpPickedUp; 
+    public event EventHandler OnAnyPowerUpPickedUp;
+
+    private Coroutine activeTimerCoroutine;
+    private float timer;
+    private float maxDuration;
+    private bool isTimerRunning;
 
     //public static event EventHandler<OnTimeBonusEventArgs> OnTimeBonusReceived;
     //public class OnTimeBonusEventArgs : EventArgs { public float amount; }
@@ -20,14 +25,14 @@ public class PowerUpManager : MonoBehaviour
         Instance = this;
     }
 
-    public void AddPowerUp(PowerUpSO powerUp) 
+    public void AddPowerUp(PowerUpSO powerUpSO) 
     {
         // Identify what kind of power-up we just got
-        switch (powerUp.type) 
+        switch (powerUpSO.type) 
         {
             case PowerUpSO.PowerUpType.AdrenalineShot:
                 // We tell the PlayerController to move faster
-                PlayerController.Instance.ApplySpeedBoost(powerUp.multiplier, powerUp.duration);
+                PlayerController.Instance.SetSpeedBoost(powerUpSO.multiplier);
                 break;
             
             case PowerUpSO.PowerUpType.TimeWarp:
@@ -35,13 +40,56 @@ public class PowerUpManager : MonoBehaviour
                 break;
 
             default:
-                Debug.Log("No powerUp.type defined for" + powerUp.type);
-                break;
+                Debug.Log("No powerUpSO.type defined for" + powerUpSO.type);
+                return;
         }
 
         // 2. Trigger the SoundManager event
         OnAnyPowerUpPickedUp?.Invoke(this, EventArgs.Empty);
+
+        if (activeTimerCoroutine != null) StopCoroutine(activeTimerCoroutine);
+        activeTimerCoroutine = StartCoroutine(PowerUpTimerRoutine(powerUpSO.duration));
     }
+
+    private IEnumerator PowerUpTimerRoutine(float duration) 
+    {
+        maxDuration = duration;
+        timer = duration;
+        isTimerRunning = true;
+
+        // Tell the Player to start the effect
+
+        // Wait until we hit the "Fade" threshold (e.g., last 20%)
+        while (timer > duration * 0.2f) 
+        {
+            timer -= Time.deltaTime;
+            yield return null;
+        }
+
+        // Switch to Fade state
+
+        while (timer > 0) 
+        {
+            timer -= Time.deltaTime;
+            yield return null;
+        }
+
+        // Power-up ended
+        ResetPowerUps();
+        isTimerRunning = false;
+        timer = 0;
+    }
+
+    private void ResetPowerUps()
+    {
+        PlayerController.Instance.ResetSpeedBoost();
+    }
+
+    public float GetPowerUpTimerNormalized() {
+        if (!isTimerRunning || maxDuration <= 0) return 0f;
+        return timer / maxDuration;
+    }
+
 
 /*
     public void AddPowerUp(PowerUpSO powerUp)
