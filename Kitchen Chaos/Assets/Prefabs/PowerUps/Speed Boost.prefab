@@ -226,7 +226,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PowerUpPickupVisual
   powerUpPickup: {fileID: 4788662851155422679}
-  pickupParticles: {fileID: 0}
   rotationSpeed: 100
   visualModel: {fileID: 6050552781153813882}
 --- !u!1 &3221733578029094067
@@ -351,6 +350,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4989919401199818980}
+  - {fileID: 503419704974448712}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &4476303392101085659
@@ -1131,6 +1131,53 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &7319703045992651443
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 503419704974448712}
+  - component: {fileID: 3224928357749707112}
+  m_Layer: 7
+  m_Name: PickUp particles
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &503419704974448712
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7319703045992651443}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2498530726814003212}
+  m_Father: {fileID: 5498580507926902338}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3224928357749707112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7319703045992651443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d11fcfad7e078c24daa959a142ad82c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PowerUpPickUpParticles
+  powerUpPickup: {fileID: 4788662851155422679}
+  pickupParticles: {fileID: 5484871681409207385}
 --- !u!1 &8753320735157798804
 GameObject:
   m_ObjectHideFlags: 0
@@ -1233,3 +1280,83 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!1001 &8545222541927689835
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 503419704974448712}
+    m_Modifications:
+    - target: {fileID: 6069210545547320935, guid: 4ee2c24bc367b8344a36f24666ccc188,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.08117
+      objectReference: {fileID: 0}
+    - target: {fileID: 6069210545547320935, guid: 4ee2c24bc367b8344a36f24666ccc188,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6069210545547320935, guid: 4ee2c24bc367b8344a36f24666ccc188,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.28583
+      objectReference: {fileID: 0}
+    - target: {fileID: 6069210545547320935, guid: 4ee2c24bc367b8344a36f24666ccc188,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6069210545547320935, guid: 4ee2c24bc367b8344a36f24666ccc188,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6069210545547320935, guid: 4ee2c24bc367b8344a36f24666ccc188,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6069210545547320935, guid: 4ee2c24bc367b8344a36f24666ccc188,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6069210545547320935, guid: 4ee2c24bc367b8344a36f24666ccc188,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6069210545547320935, guid: 4ee2c24bc367b8344a36f24666ccc188,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6069210545547320935, guid: 4ee2c24bc367b8344a36f24666ccc188,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7179432421682833134, guid: 4ee2c24bc367b8344a36f24666ccc188,
+        type: 3}
+      propertyPath: m_Name
+      value: PickUpBurst
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4ee2c24bc367b8344a36f24666ccc188, type: 3}
+--- !u!4 &2498530726814003212 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6069210545547320935, guid: 4ee2c24bc367b8344a36f24666ccc188,
+    type: 3}
+  m_PrefabInstance: {fileID: 8545222541927689835}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &5484871681409207385 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 4217787195043111474, guid: 4ee2c24bc367b8344a36f24666ccc188,
+    type: 3}
+  m_PrefabInstance: {fileID: 8545222541927689835}
+  m_PrefabAsset: {fileID: 0}
