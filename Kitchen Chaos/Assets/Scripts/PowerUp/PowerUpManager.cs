@@ -36,7 +36,7 @@ public class PowerUpManager : MonoBehaviour
                 break;
             
             case PowerUpSO.PowerUpType.TimeWarp:
-                // We'll hook this to KitchenGameManager later
+                GameHandler.Instance.AddGameTime(powerUpSO.multiplier);
                 break;
 
             default:

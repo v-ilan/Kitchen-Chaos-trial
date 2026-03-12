@@ -4,9 +4,11 @@ using UnityEngine;
 public class PowerUpSpawner : MonoBehaviour
 {
     [Header("PowerUps Pool")]
-    [SerializeField] private GameObject powerUpPrefab; 
+    [SerializeField] private List<PowerUpSO> powerUpPrototypes; // List containing Speed and Time SOs
+    private int numPowerUps = 3; // You likely only need 2 or 3 of each powerUp in the scene at once
     private List<GameObject> pool = new List<GameObject>();
-    private int poolSize = 3; // You likely only need 2 or 3 in the scene at once    [SerializeField] private Transform[] spawnPoints;        // Predetermined safe spots
+    private int poolSize = 0;
+    private int[] indices;
     
     [Header("Spawn Area Constraints")]
     [SerializeField] private Vector2 xRange = new Vector2(-10f, 10f); // x0 and x1
@@ -15,8 +17,6 @@ public class PowerUpSpawner : MonoBehaviour
 
     [Header("Rules")]
     [SerializeField] private float minDistanceFromPlayer = 5f;
-    [SerializeField] private Transform playerTransform;
-
     [SerializeField] private float spawnInterval = 15f;      // Every 15 seconds
     
     private float timer;
@@ -24,11 +24,21 @@ public class PowerUpSpawner : MonoBehaviour
     private void Awake() 
     {
         // Pre-warm the pool
+        foreach(var powerUpPrototype in powerUpPrototypes)
+        {
+            for (int i = 0; i < numPowerUps; i++) 
+            {
+                GameObject obj = Instantiate(powerUpPrototype.Prefab.gameObject, transform);
+                obj.SetActive(false);
+                pool.Add(obj);
+            }
+        }
+        poolSize = pool.Count;
+        // Initialize the indices array
+        indices = new int[poolSize];
         for (int i = 0; i < poolSize; i++) 
         {
-            GameObject obj = Instantiate(powerUpPrefab);
-            obj.SetActive(false);
-            pool.Add(obj);
+            indices[i] = i;
         }
     }
 
@@ -47,13 +57,15 @@ public class PowerUpSpawner : MonoBehaviour
 
     private GameObject GetPooledObject() 
     {
-        foreach (GameObject obj in pool) 
+        ShuffleIndices();
+        // Now check the objects in that shuffled order
+        for (int i = 0; i < indices.Length; i++) 
         {
-            if (!obj.activeInHierarchy)
+            int poolIndex = indices[i];
+            if (!pool[poolIndex].activeInHierarchy)
             {
-                
+                return pool[poolIndex];
             }
-            return obj;
         }
         return null; // Pool is full, don't spawn
     }
@@ -62,6 +74,17 @@ public class PowerUpSpawner : MonoBehaviour
         GameObject powerUp = GetPooledObject();
         if (powerUp == null) return;
 
+        bool foundValidSpot = FindValidSpawnPos(out Vector3 spawnPos);
+        
+        if (foundValidSpot) 
+        {
+            powerUp.transform.position = spawnPos;
+            powerUp.SetActive(true);
+        }
+    }
+
+    private bool FindValidSpawnPos(out Vector3 potentialPos )
+    {
         Vector3 spawnPos = Vector3.zero;
         bool foundValidSpot = false;
         int attempts = 0;
@@ -72,15 +95,60 @@ public class PowerUpSpawner : MonoBehaviour
             float randomZ = Random.Range(zRange.x, zRange.y);
             spawnPos = new Vector3(randomX, spawnHeight, randomZ);
 
-            if (Vector3.Distance(spawnPos, playerTransform.position) >= minDistanceFromPlayer) {
+            if (IsSpawnPosValid(spawnPos)) 
+            {
                 foundValidSpot = true;
             }
             attempts++;
         }
+        potentialPos = spawnPos;
+        return foundValidSpot;
+    }
 
-        if (foundValidSpot) {
-            powerUp.transform.position = spawnPos;
-            powerUp.SetActive(true);
+    private bool IsSpawnPosValid(Vector3 potentialPos) 
+    {  
+        // 1. Check Distance from Player
+        if (Vector3.Distance(potentialPos, PlayerController.Instance.transform.position) < minDistanceFromPlayer) 
+        {
+            return false;
+        }
+
+        // 2. Check for Overlap with Counters/Walls
+        // Radius should be slightly larger than the powerup (e.g., 0.7f)
+        /*
+        if (Physics.CheckSphere(potentialPos, 0.7f, counterLayerMask)) 
+        {
+            return false;
+        }
+        */
+
+        // 3. Check for Overlap with other ACTIVE Power-Ups
+        foreach (GameObject activeObj in pool) 
+        {
+            if (activeObj.activeInHierarchy) 
+            {
+                // If the potential spot is too close to an existing power-up
+                if (Vector3.Distance(potentialPos, activeObj.transform.position) < 2.0f) 
+                {
+                    return false;
+                }
+            }
+        }
+
+        return true; // All checks passed
+    }
+
+    private void ShuffleIndices()
+    {
+        int randomIndex = 0;
+        int temp = 0;
+        // Shuffle the indices array using Fisher-Yates
+        for (int i = indices.Length - 1; i > 0; i--) 
+        {
+            randomIndex = Random.Range(0, i + 1);
+            temp = indices[i];
+            indices[i] = indices[randomIndex];
+            indices[randomIndex] = temp;
         }
     }
 

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: TimeWarp
   m_EditorClassIdentifier: Assembly-CSharp::PowerUpSO
   powerUpName: 
-  Prefab: {fileID: 0}
+  Prefab: {fileID: 547160558282167986, guid: d1c1565fd4b150e498772e91b287f383, type: 3}
   icon: {fileID: 0}
   duration: 0
-  multiplier: 1.5
+  multiplier: 20
   type: 3

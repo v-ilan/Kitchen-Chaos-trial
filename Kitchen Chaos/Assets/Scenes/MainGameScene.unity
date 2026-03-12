@@ -4500,13 +4500,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af5340f51e25c3646a955c18e999a630, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PowerUpSpawner
-  powerUpPrefab: {fileID: 3330660468542744392, guid: 6addf292d855c0648b51cb5a820ab18f,
-    type: 3}
+  powerUpPrototypes:
+  - {fileID: 11400000, guid: 461eb18fb75f1794fb27f0f836825579, type: 2}
+  - {fileID: 11400000, guid: 3baea506af11bca459ee122e01ab9efd, type: 2}
   xRange: {x: -6, y: 6}
   zRange: {x: -3.5, y: 2.5}
   spawnHeight: 0.5
   minDistanceFromPlayer: 3
-  playerTransform: {fileID: 548712734}
   spawnInterval: 15
 --- !u!4 &678600668
 Transform:

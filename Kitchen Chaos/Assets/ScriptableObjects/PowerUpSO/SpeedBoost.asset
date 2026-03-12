@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SpeedBoost
   m_EditorClassIdentifier: Assembly-CSharp::PowerUpSO
   powerUpName: Speed Boost
-  Prefab: {fileID: 5498580507926902338, guid: 6addf292d855c0648b51cb5a820ab18f, type: 3}
+  Prefab: {fileID: 970484148733141016, guid: fa4687df5144fc24c99a53b94f3b3077, type: 3}
   icon: {fileID: 0}
   duration: 10
   multiplier: 1.5
