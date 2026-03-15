@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
         public BaseCounter selectedCounter;
     }
 
+    public event EventHandler OnSpeedChange;
+
     [SerializeField] private GameInput gameInput;
     [SerializeField] private float baseMoveSpeed = 10f;
     [SerializeField] private LayerMask moveLayerMask;
@@ -178,7 +180,13 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
         }
     }
 
-    public void SetSpeedBoost(float multiplier) => currentMoveSpeed = baseMoveSpeed * multiplier;
+    public void SetSpeedBoost(float multiplier)
+    {
+        currentMoveSpeed = baseMoveSpeed * multiplier;
+        OnSpeedChange?.Invoke(this, EventArgs.Empty);
+    }
 
     public void ResetSpeedBoost() => SetSpeedBoost(1);
+
+    public bool IsSpeedUp() => currentMoveSpeed > baseMoveSpeed;
 }
