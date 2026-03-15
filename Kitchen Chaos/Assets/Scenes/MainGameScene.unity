@@ -4552,7 +4552,7 @@ MonoBehaviour:
   zRange: {x: -3.5, y: 2.5}
   spawnHeight: 0.5
   minDistanceFromPlayer: 3
-  spawnInterval: 15
+  spawnInterval: 5
 --- !u!4 &678600668
 Transform:
   m_ObjectHideFlags: 0
@@ -15048,7 +15048,7 @@ PrefabInstance:
     - target: {fileID: 650789681328302109, guid: 7be04919455e9a348950bcad3d67b68e,
         type: 3}
       propertyPath: lengthInSec
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 650789681328302109, guid: 7be04919455e9a348950bcad3d67b68e,
         type: 3}
@@ -15072,6 +15072,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 650789681328302109, guid: 7be04919455e9a348950bcad3d67b68e,
         type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 650789681328302109, guid: 7be04919455e9a348950bcad3d67b68e,
+        type: 3}
       propertyPath: InitialModule.startSpeed.scalar
       value: 1
       objectReference: {fileID: 0}
@@ -15079,6 +15084,11 @@ PrefabInstance:
         type: 3}
       propertyPath: EmissionModule.rateOverTime.scalar
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 650789681328302109, guid: 7be04919455e9a348950bcad3d67b68e,
+        type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 650789681328302109, guid: 7be04919455e9a348950bcad3d67b68e,
         type: 3}
@@ -15103,7 +15113,7 @@ PrefabInstance:
     - target: {fileID: 3956864541224115820, guid: 7be04919455e9a348950bcad3d67b68e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.388
       objectReference: {fileID: 0}
     - target: {fileID: 3956864541224115820, guid: 7be04919455e9a348950bcad3d67b68e,
         type: 3}

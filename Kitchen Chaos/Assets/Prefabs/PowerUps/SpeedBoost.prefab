@@ -13,12 +13,27 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpeedBoost
       objectReference: {fileID: 0}
+    - target: {fileID: 3645913368431361712, guid: 8fb810a44edb9b941b562df9cd72fc0f,
+        type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: c79ba6c1654c58f4fa962a7aada79563, type: 2}
     - target: {fileID: 4788662851155422679, guid: 8fb810a44edb9b941b562df9cd72fc0f,
         type: 3}
       propertyPath: powerUpSO
       value: 
       objectReference: {fileID: 11400000, guid: 461eb18fb75f1794fb27f0f836825579,
         type: 2}
+    - target: {fileID: 4805811266735501409, guid: 8fb810a44edb9b941b562df9cd72fc0f,
+        type: 3}
+      propertyPath: m_Name
+      value: RunningMan Icon
+      objectReference: {fileID: 0}
+    - target: {fileID: 4805811266735501409, guid: 8fb810a44edb9b941b562df9cd72fc0f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5498580507926902338, guid: 8fb810a44edb9b941b562df9cd72fc0f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -67,6 +82,16 @@ PrefabInstance:
     - target: {fileID: 5498580507926902338, guid: 8fb810a44edb9b941b562df9cd72fc0f,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6050552781153813882, guid: 8fb810a44edb9b941b562df9cd72fc0f,
+        type: 3}
+      propertyPath: m_Name
+      value: RunningMan Model
+      objectReference: {fileID: 0}
+    - target: {fileID: 6050552781153813882, guid: 8fb810a44edb9b941b562df9cd72fc0f,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

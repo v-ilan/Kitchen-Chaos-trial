@@ -13,12 +13,27 @@ PrefabInstance:
       propertyPath: m_Name
       value: TimeWarp
       objectReference: {fileID: 0}
+    - target: {fileID: 3645913368431361712, guid: 8fb810a44edb9b941b562df9cd72fc0f,
+        type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 8cf767043ebf2c540be3b9971ecec674, type: 2}
     - target: {fileID: 4788662851155422679, guid: 8fb810a44edb9b941b562df9cd72fc0f,
         type: 3}
       propertyPath: powerUpSO
       value: 
       objectReference: {fileID: 11400000, guid: 3baea506af11bca459ee122e01ab9efd,
         type: 2}
+    - target: {fileID: 4805811266735501409, guid: 8fb810a44edb9b941b562df9cd72fc0f,
+        type: 3}
+      propertyPath: m_Name
+      value: TimeWarp Icon
+      objectReference: {fileID: 0}
+    - target: {fileID: 4805811266735501409, guid: 8fb810a44edb9b941b562df9cd72fc0f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5341488095612461124, guid: 8fb810a44edb9b941b562df9cd72fc0f,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -97,6 +112,16 @@ PrefabInstance:
     - target: {fileID: 5498580507926902338, guid: 8fb810a44edb9b941b562df9cd72fc0f,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6050552781153813882, guid: 8fb810a44edb9b941b562df9cd72fc0f,
+        type: 3}
+      propertyPath: m_Name
+      value: Model
+      objectReference: {fileID: 0}
+    - target: {fileID: 6050552781153813882, guid: 8fb810a44edb9b941b562df9cd72fc0f,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
