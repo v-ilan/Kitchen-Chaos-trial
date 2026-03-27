@@ -131,6 +131,7 @@ public class GameHandler : MonoBehaviour
     {
         TogglePauseGame();
     }
+
     public void TogglePauseGame()
     {
         isGamePaused = !isGamePaused;
@@ -144,6 +145,13 @@ public class GameHandler : MonoBehaviour
             Time.timeScale = 1f;
             OnGameResume?.Invoke(this, EventArgs.Empty);
         }
+    }
+
+    public void AddGameTime(float amount)
+    {
+        timer += amount;
+        // Clamp it so they can't get infinite time
+        timer = Mathf.Min(timer, GAME_PLAYING_TIMER);
     }
 
     private void OnDestroy() 

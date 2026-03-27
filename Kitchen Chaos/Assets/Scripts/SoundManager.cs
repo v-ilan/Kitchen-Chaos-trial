@@ -27,6 +27,8 @@ public class SoundManager : MonoBehaviour
         BaseCounter.OnAnyObjectPlacedHere += BaseCounterOnAnyObjectPlacedHere;
         TrashCounter.OnAnyObjectTrashed += TrashCounterOnAnyObjectTrashed;
         PlayerSounds.OnAnyFootstep += PlayerSoundsOnAnyFootstep;
+
+        PowerUpManager.Instance.OnAnyPowerUpPickedUp += PowerUpManager_OnAnyPowerUpPickedUp;
     }
 
     private void PlayerSoundsOnAnyFootstep(object sender, System.EventArgs e)
@@ -62,6 +64,11 @@ public class SoundManager : MonoBehaviour
         PlaySound(audioClipRefsSO.deliverySuccess, DeliveryCounter.Instance.transform.position);
     }
 
+    private void PowerUpManager_OnAnyPowerUpPickedUp(object sender, System.EventArgs e) 
+    {   //add an audioClipRef for the pickup
+        //PlaySound(audioClipRefsSO.powerUpPickup, PlayerController.Instance.transform.position);
+    }
+
     private void PlaySound(AudioClip audioClip, Vector3 position, float volumeMultiplier = 1f)
     {
         AudioSource.PlayClipAtPoint(audioClip, position, volumeMultiplier * volume);
@@ -70,6 +77,8 @@ public class SoundManager : MonoBehaviour
     {
         PlaySound(audioClipArray[Random.Range(0, audioClipArray.Length)], position, volume);
     }
+
+    
 
     
 
@@ -118,7 +127,12 @@ public class SoundManager : MonoBehaviour
 
         if (PlayerController.Instance != null) 
         {
-            PlayerController.Instance.OnPickedSomething += PlayerControllerOnPickedSomething;
+            PlayerController.Instance.OnPickedSomething -= PlayerControllerOnPickedSomething;
+        }
+
+        if (PowerUpManager.Instance != null) 
+        {
+            PowerUpManager.Instance.OnAnyPowerUpPickedUp -= PowerUpManager_OnAnyPowerUpPickedUp;
         }
 
         BaseCounter.OnAnyObjectPlacedHere -= BaseCounterOnAnyObjectPlacedHere;

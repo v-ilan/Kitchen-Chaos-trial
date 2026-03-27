@@ -14,9 +14,13 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
         public BaseCounter selectedCounter;
     }
 
+    public event EventHandler OnSpeedChange;
+
     [SerializeField] private GameInput gameInput;
-    [SerializeField] private float speed = 0f;
+    [SerializeField] private float baseMoveSpeed = 10f;
+    [SerializeField] private LayerMask moveLayerMask;
     [SerializeField] private LayerMask countersLayerMask;
+    private float currentMoveSpeed = 10f;
 
     private bool isWalking;
     private Vector3 moveDir;
@@ -51,15 +55,15 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
     {
         Vector2 inputVector = gameInput.GetMovementVectorNormalized();
         moveDir = new Vector3(inputVector.x, 0f, inputVector.y);
-        float moveDistance = Time.deltaTime * speed;
+        float moveDistance = Time.deltaTime * currentMoveSpeed;
         float playerRadius = 0.7f;
         float playerHeight = 2f;
 
-        bool canMove = !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDir, moveDistance);
+        bool canMove = !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDir, moveDistance, moveLayerMask);
         if (!canMove) //cannot move in moveDir direction
         {   //attemp movement in X axis
             Vector3 moveDirX = new Vector3(moveDir.x, 0, 0);
-            canMove = Mathf.Abs(moveDir.x) > 0.5f && !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDirX, moveDistance);
+            canMove = Mathf.Abs(moveDir.x) > 0.5f && !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDirX, moveDistance, moveLayerMask);
             if (canMove)
             {
                 moveDir = moveDirX.normalized;
@@ -67,7 +71,7 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
             else
             {   // attempt move in Z axis
                 Vector3 moveDirZ = new Vector3(0, 0, moveDir.z);
-                canMove = Mathf.Abs(moveDir.z) > 0.5f && !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDirZ, moveDistance);
+                canMove = Mathf.Abs(moveDir.z) > 0.5f && !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDirZ, moveDistance, moveLayerMask);
                 if (canMove)
                 {
                     moveDir = moveDirZ.normalized;
@@ -81,7 +85,7 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
         }
         if (isWalking = moveDir != Vector3.zero)
         {
-            transform.forward = Vector3.Slerp(transform.forward, moveDir, Time.deltaTime * speed);
+            transform.forward = Vector3.Slerp(transform.forward, moveDir, Time.deltaTime * currentMoveSpeed);
         }
     }
 
@@ -175,4 +179,14 @@ public class PlayerController : MonoBehaviour, IKitchenObjectParent
             gameInput.OnIneractAlternateAction -= GameInputOnIneractAlternateAction;
         }
     }
+
+    public void SetSpeedBoost(float multiplier)
+    {
+        currentMoveSpeed = baseMoveSpeed * multiplier;
+        OnSpeedChange?.Invoke(this, EventArgs.Empty);
+    }
+
+    public void ResetSpeedBoost() => SetSpeedBoost(1);
+
+    public bool IsSpeedUp() => currentMoveSpeed > baseMoveSpeed;
 }
