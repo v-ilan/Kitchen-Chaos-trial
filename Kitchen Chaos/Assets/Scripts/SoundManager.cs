@@ -139,5 +139,4 @@ public class SoundManager : MonoBehaviour
         TrashCounter.OnAnyObjectTrashed -= TrashCounterOnAnyObjectTrashed;
         PlayerSounds.OnAnyFootstep -= PlayerSoundsOnAnyFootstep;
     }
-
 }
